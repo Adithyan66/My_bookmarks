@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
-import { validateBookmark } from '@/lib/validate'
+import { validateBookmark, normalizeUrl } from '@/lib/validate'
 
 export default function AddBookmarkForm({ userId }: { userId: string }) {
   const [url, setUrl] = useState('')
@@ -28,7 +28,7 @@ console.log(sessionData.session)
     setLoading(true)
     const { error } = await supabase.from('bookmarks').insert({
       user_id: userId,
-      url: url.trim(),
+      url: normalizeUrl(url),
       title: title.trim(),
     })
     setLoading(false)
@@ -64,7 +64,7 @@ console.log(sessionData.session)
       </div>
       <div>
         <input
-          type="url"
+          type="text"
           placeholder="https://example.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}

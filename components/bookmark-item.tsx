@@ -4,7 +4,8 @@ import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import type { Bookmark } from '@/lib/types'
-import { validateBookmark } from '@/lib/validate'
+import { validateBookmark, normalizeUrl } from '@/lib/validate'
+import ConfirmationModal from './confirmation-modal'
 
 export default function BookmarkItem({
   bookmark,
@@ -22,6 +23,7 @@ export default function BookmarkItem({
   const [editTitle, setEditTitle] = useState(bookmark.title)
   const [saving, setSaving] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const supabase = createClient()
 
   async function handleSave() {
@@ -33,7 +35,7 @@ export default function BookmarkItem({
     setSaving(true)
     const { data, error } = await supabase
       .from('bookmarks')
-      .update({ url: editUrl.trim(), title: editTitle.trim() })
+      .update({ url: normalizeUrl(editUrl), title: editTitle.trim() })
       .eq('id', bookmark.id)
       .eq('user_id', userId)
       .select()
@@ -69,7 +71,7 @@ export default function BookmarkItem({
       <li className="rounded-xl border border-zinc-200 bg-white p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <div className="grid gap-3 sm:grid-cols-[1fr_1fr_auto_auto]">
           <input
-            type="url"
+            type="text"
             value={editUrl}
             onChange={(e) => setEditUrl(e.target.value)}
             className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:border-zinc-400 dark:border-zinc-700 dark:bg-zinc-800"
@@ -138,13 +140,23 @@ export default function BookmarkItem({
         </button>
         <button
           type="button"
-          onClick={handleDelete}
+          onClick={() => setShowDeleteModal(true)}
           disabled={deleting}
           className="rounded-lg border border-red-200 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-50 disabled:opacity-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
         >
           {deleting ? 'Deleting…' : 'Delete'}
         </button>
       </div>
+      <ConfirmationModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={handleDelete}
+        title="Delete Bookmark"
+        message={`Are you sure you want to delete "${bookmark.title}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+      />
     </li>
   )
 }
