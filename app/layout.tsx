@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Smart Bookmark",
+  title: "Adhiyo's Bookmark",
   description: "Bookmark manager with Google sign-in and real-time sync",
 };
 
