@@ -18,6 +18,13 @@ export default function AddBookmarkForm({ userId }: { userId: string }) {
       toast.error(result.message)
       return
     }
+    const { data: { user } } = await supabase.auth.getUser()
+console.log("Auth user:", user?.id)
+console.log("Prop userId:", userId)
+const { data: sessionData } = await supabase.auth.getSession()
+console.log(sessionData.session)
+
+
     setLoading(true)
     const { error } = await supabase.from('bookmarks').insert({
       user_id: userId,
