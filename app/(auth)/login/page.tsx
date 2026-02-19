@@ -14,7 +14,7 @@ export default async function LoginPage() {
     <div className="flex min-h-screen flex-col md:flex-row items-center justify-center gap-8 px-4 bg-zinc-50 dark:bg-zinc-950">
       <div className="w-full max-w-sm">
         <h1 className="mb-4 text-center text-4xl md:text-5xl font-bold bg-gradient-to-r from-zinc-900 via-zinc-700 to-zinc-900 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 bg-clip-text text-transparent tracking-tight">
-          Adhi's Bookmark
+          Adiyo's Bookmark
         </h1>
         <p className="mb-6 text-center text-sm text-zinc-500 dark:text-zinc-400">
           Sign in with Google to manage your bookmarks

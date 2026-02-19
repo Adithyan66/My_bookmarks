@@ -22,7 +22,7 @@ export default function Header({ user }: { user: User }) {
       <div className="mx-auto flex max-w-2xl items-center justify-between px-4 py-4">
         <div className="flex flex-col">
           <h1 className="text-xl font-bold bg-gradient-to-r from-zinc-900 via-zinc-700 to-zinc-900 dark:from-zinc-100 dark:via-zinc-300 dark:to-zinc-100 bg-clip-text text-transparent tracking-tight">
-            Adhi's Bookmark
+            Adiyo's Bookmark
           </h1>
           <span className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
             {user.email}

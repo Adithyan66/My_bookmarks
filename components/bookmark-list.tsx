@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import type { Bookmark } from '@/lib/types'
 import AddBookmarkForm from './add-bookmark-form'
@@ -72,6 +73,15 @@ export default function BookmarkList({
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-500">
             Add one using the form above
           </p>
+          <div className="mt-6 flex justify-center">
+            <Image
+              src="/images/pointingUp.png"
+              alt="Pointing up"
+              width={200}
+              height={200}
+              className="h-auto w-auto"
+            />
+          </div>
         </div>
       ) : (
         <ul className="space-y-3">
